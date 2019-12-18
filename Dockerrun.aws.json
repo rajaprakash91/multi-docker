@@ -1,0 +1,37 @@
+{
+  "AWSEBDockerrunVersion" : 2,
+  "containerDefinitions": [
+    {
+      "name" : "client"
+      , "image": "mrpjade/multi-client"
+      , "hostname": "client"
+      , "essential" : true
+    }
+    , {
+      "name" : "server"
+      , "image" : "mrpjade/multi-server"
+      , "hostname" : "api"
+      , "essential" : false
+    }
+    , {
+      "name": "worker"
+      , "image": "mprjade/multi-worker"
+      , "hostname" : "worker"
+      , "essential" : false
+    }
+
+    , {
+      "name": "nginx"
+      , "image": "mprjade/multi-nginx"
+      , "hostname" : "nginx"
+      , "essential" : true
+      , "portMappings": [
+        {
+          "hostport": 80
+          , "containerport": 80
+        }
+      ]
+      , "links" : ["client", "server"]
+    }
+  ]
+}
